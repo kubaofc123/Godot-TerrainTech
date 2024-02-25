@@ -1,0 +1,239 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvl8wfegcw6ej"]
+
+[ext_resource type="Script" path="res://addons/Godot-TerrainTech/src/terrain.gd" id="1_3bhop"]
+[ext_resource type="Material" uid="uid://bcuaw7htftwru" path="res://addons/Godot-TerrainTech/src/materials/terrain_material.tres" id="2_0bql8"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nm5wf"]
+size = Vector2(5, 5)
+subdivide_width = 350
+subdivide_depth = 350
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fw3f6"]
+size = Vector2(5, 5)
+subdivide_width = 175
+subdivide_depth = 175
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bkv18"]
+size = Vector2(5, 5)
+subdivide_width = 80
+subdivide_depth = 80
+
+[node name="Terrain" type="Node"]
+script = ExtResource("1_3bhop")
+terrain_material = ExtResource("2_0bql8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.313198, 0.711535, -0.628987, 0.0116099, 0.665129, 0.746638, 0.949618, 0.226543, -0.216578, 0, 0, 0)
+light_energy = 3.0
+shadow_enabled = true
+shadow_bias = 0.02
+directional_shadow_max_distance = 20.0
+directional_shadow_pancake_size = 1.0
+
+[node name="LOD0" type="Node3D" parent="."]
+process_mode = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LOD0"]
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_nm5wf")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="LOD1" type="Node3D" parent="."]
+process_mode = 4
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="LOD1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_fw3f6")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="LOD2" type="Node3D" parent="."]
+process_mode = 4
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D19" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D20" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D21" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D22" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D23" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D24" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -5)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
+
+[node name="MeshInstance3D25" type="MeshInstance3D" parent="LOD2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10)
+cast_shadow = 2
+extra_cull_margin = 3.0
+mesh = SubResource("PlaneMesh_bkv18")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0bql8")
