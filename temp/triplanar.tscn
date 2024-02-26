@@ -1,0 +1,201 @@
+[gd_scene load_steps=23 format=3 uid="uid://bp7u4uhnw2hv"]
+
+[ext_resource type="Texture2D" uid="uid://bjodjru0wgk6y" path="res://game/assets/enviroment/terrain/ground_other_vdtlahelw/vdtlahelw_2K_Albedo.jpg" id="1_3rh28"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a02b7"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_gnwek"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(8, 8, 8)]
+operator = 5
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_yy0q6"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(8, 8, 8)]
+operator = 3
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_d1un5"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_3jjwt"]
+constant = 8.0
+
+[sub_resource type="VisualShaderNodeTransformVecMult" id="VisualShaderNodeTransformVecMult_qua2c"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_tni57"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_pigcf"]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeDotProduct" id="VisualShaderNodeDotProduct_huk6o"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1)]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_kx2g6"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_gxull"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_pthpu"]
+
+[sub_resource type="VisualShaderNodeVectorFunc" id="VisualShaderNodeVectorFunc_em4rm"]
+function = 4
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_66s83"]
+input_name = "inv_view_matrix"
+
+[sub_resource type="VisualShaderNodeTransformVecMult" id="VisualShaderNodeTransformVecMult_he82l"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qkwll"]
+texture = ExtResource("1_3rh28")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_o2vbk"]
+operator = 2
+
+[sub_resource type="VisualShader" id="VisualShader_xjhep"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_7 : source_color;
+
+
+
+void fragment() {
+// Texture2D:7
+	vec4 n_out7p0 = texture(tex_frg_7, UV);
+
+
+// Input:5
+	mat4 n_out5p0 = INV_VIEW_MATRIX;
+
+
+// Input:2
+	vec3 n_out2p0 = NORMAL;
+
+
+// TransformVectorMult:6
+	vec3 n_out6p0 = (n_out5p0 * vec4(n_out2p0, 0.0)).xyz;
+
+
+// VectorFunc:4
+	vec3 n_out4p0 = abs(n_out6p0);
+
+
+// FloatConstant:14
+	float n_out14p0 = 8.000000;
+
+
+// VectorOp:11
+	vec3 n_out11p0 = pow(n_out4p0, vec3(n_out14p0));
+
+
+// DotProduct:3
+	vec3 n_in3p1 = vec3(1.00000, 1.00000, 1.00000);
+	float n_out3p0 = dot(n_out11p0, n_in3p1);
+
+
+// VectorOp:12
+	vec3 n_out12p0 = n_out11p0 / vec3(n_out3p0);
+
+
+// VectorDecompose:13
+	float n_out13p0 = n_out12p0.x;
+	float n_out13p1 = n_out12p0.y;
+	float n_out13p2 = n_out12p0.z;
+
+
+// VectorOp:8
+	vec3 n_out8p0 = vec3(n_out7p0.xyz) * vec3(n_out13p0);
+
+
+// VectorOp:31
+	vec3 n_out31p0 = vec3(n_out7p0.xyz) * vec3(n_out13p1);
+
+
+// VectorOp:19
+	vec3 n_out19p0 = n_out8p0 + n_out31p0;
+
+
+// VectorOp:32
+	vec3 n_out32p0 = vec3(n_out7p0.xyz) * vec3(n_out13p2);
+
+
+// VectorOp:33
+	vec3 n_out33p0 = n_out19p0 + n_out32p0;
+
+
+// Output:0
+	EMISSION = n_out33p0;
+
+
+}
+"
+graph_offset = Vector2(-428.75, -51.8715)
+nodes/fragment/0/position = Vector2(773.636, 94.5455)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_pigcf")
+nodes/fragment/2/position = Vector2(-2290, 434)
+nodes/fragment/3/node = SubResource("VisualShaderNodeDotProduct_huk6o")
+nodes/fragment/3/position = Vector2(-970, 576)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorFunc_em4rm")
+nodes/fragment/4/position = Vector2(-1528, 296)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_66s83")
+nodes/fragment/5/position = Vector2(-2231, 264)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTransformVecMult_he82l")
+nodes/fragment/6/position = Vector2(-1828, 330)
+nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_qkwll")
+nodes/fragment/7/position = Vector2(-976, -158)
+nodes/fragment/8/node = SubResource("VisualShaderNodeVectorOp_o2vbk")
+nodes/fragment/8/position = Vector2(-177, 77)
+nodes/fragment/11/node = SubResource("VisualShaderNodeVectorOp_gnwek")
+nodes/fragment/11/position = Vector2(-1247, 350)
+nodes/fragment/12/node = SubResource("VisualShaderNodeVectorOp_yy0q6")
+nodes/fragment/12/position = Vector2(-718, 352)
+nodes/fragment/13/node = SubResource("VisualShaderNodeVectorDecompose_d1un5")
+nodes/fragment/13/position = Vector2(-479.273, 533.364)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFloatConstant_3jjwt")
+nodes/fragment/14/position = Vector2(-1553, 552)
+nodes/fragment/18/node = SubResource("VisualShaderNodeTransformVecMult_qua2c")
+nodes/fragment/18/position = Vector2(1687, 1318)
+nodes/fragment/19/node = SubResource("VisualShaderNodeVectorOp_tni57")
+nodes/fragment/19/position = Vector2(89.5189, 208.379)
+nodes/fragment/31/node = SubResource("VisualShaderNodeVectorOp_kx2g6")
+nodes/fragment/31/position = Vector2(-179.545, 294.545)
+nodes/fragment/32/node = SubResource("VisualShaderNodeVectorOp_gxull")
+nodes/fragment/32/position = Vector2(-178.182, 508.636)
+nodes/fragment/33/node = SubResource("VisualShaderNodeVectorOp_pthpu")
+nodes/fragment/33/position = Vector2(360.883, 441.561)
+nodes/fragment/connections = PackedInt32Array(5, 0, 6, 0, 6, 0, 4, 0, 7, 0, 8, 0, 2, 0, 6, 1, 4, 0, 11, 0, 11, 0, 3, 0, 11, 0, 12, 0, 3, 0, 12, 1, 12, 0, 13, 0, 14, 0, 11, 1, 8, 0, 19, 0, 7, 0, 31, 0, 31, 0, 19, 1, 7, 0, 32, 0, 13, 0, 8, 1, 13, 1, 31, 1, 13, 2, 32, 1, 19, 0, 33, 0, 32, 0, 33, 1, 33, 0, 0, 5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f4mx5"]
+render_priority = 0
+shader = SubResource("VisualShader_xjhep")
+
+[sub_resource type="SphereMesh" id="SphereMesh_pfasr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgy7x"]
+emission_enabled = true
+emission_texture = ExtResource("1_3rh28")
+uv1_triplanar = true
+uv1_triplanar_sharpness = 8.0
+uv1_world_triplanar = true
+
+[node name="Triplanar" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.814116, 0.580703, 0, -0.580703, 0.814116, 0, 0, 0)
+mesh = SubResource("SphereMesh_a02b7")
+surface_material_override/0 = SubResource("ShaderMaterial_f4mx5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.586019, 0.309152, 1.86182)
+mesh = SubResource("SphereMesh_pfasr")
+surface_material_override/0 = SubResource("StandardMaterial3D_hgy7x")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15361, 0.309152, 1.86182)
+mesh = SubResource("SphereMesh_pfasr")
+surface_material_override/0 = SubResource("StandardMaterial3D_hgy7x")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0929066, 0.101647, 0.960802, -0.421326, 0.474348, 0, -0.417179, -0.456425, 0.213972, -0.751368, 0.500244, 2.20616)
+mesh = SubResource("SphereMesh_pfasr")
+surface_material_override/0 = SubResource("StandardMaterial3D_hgy7x")
